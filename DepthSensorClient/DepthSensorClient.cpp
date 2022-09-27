@@ -56,6 +56,7 @@ int main()
 	//variables
 	while (1)
 	{
+		// Prepare the data sending to the server
 		std::string contentStr = std::to_string(cos((step*PI*i++)/180));
 		const char* sendbuf = contentStr.c_str();
 
@@ -75,22 +76,22 @@ int main()
 			return 1;
 		}
 
-		// receive the info back from server
+		// receive the info back from server -- for testing purpose
 		result = recv(ConnectSocket, recvbuf, recvbuflen, 0);
 		if (result > 0)
 		{
-			std::string size;
+			std::string recvValue;
 			for (int i = 0; i < result; i++)
 			{
-				size += recvbuf[i];
+				recvValue += recvbuf[i];
 			}
-			if (size == "-1")
+			if (recvValue == "-1")
 			{
 				std::cout << "Wrong feedback received.\n";
 			}
 			else
 			{
-				std::cout << "The size received is: " << size << std::endl;
+				std::cout << "The size received is: " << recvValue << std::endl;
 			}
 		}
 		else
