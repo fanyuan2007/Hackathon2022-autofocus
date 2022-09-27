@@ -8,7 +8,7 @@ namespace ComputarAutoLens
     {
         private const string lensConfigFolder = @"C:\ProgramData\AutoFocus\LensConfig\";
         private const string lensConfigFilename = @"lensConfiguration.txt";
-        private const ushort defaultLensValue = 2000;
+        private const ushort defaultLensValue = 3500; // Range: 2535 - 5055
         // 0: NOT using default lens value
         // 1: Using default lens value
         private const uint defaultLensConfigure = 0;
