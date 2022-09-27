@@ -8,10 +8,13 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 #pragma comment (lib, "Ws2_32.lib")
 
 #define DEFAULT_BUFLEN 256
+#define DEFAULT_SIZE 100
 #define PI 3.1415926535897
 
 int main()
@@ -50,6 +53,16 @@ int main()
 		WSACleanup();
 		return 1;
 	}
+
+	FILE* fp = fopen("/dev/ttyACM0", "w+");
+	char *buffer[DEFAULT_SIZE];
+	size_t buffer_sz = DEFAULT_SIZE;
+	if (fp)
+	{
+		//arduino_serial_port = fgetc(fp);
+
+	}
+	//int arduino_serial_port = open("/dev/ttyACM0", O_RDWR);
 
 	int i = 0;
 	int step = 10;
