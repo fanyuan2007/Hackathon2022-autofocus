@@ -1,0 +1,2 @@
+// This directory used to be an extern from following location:
+^/../ProductDocumentation/firmware/trunk/en-US/gui

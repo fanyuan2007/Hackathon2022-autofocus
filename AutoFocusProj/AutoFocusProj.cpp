@@ -9,9 +9,14 @@
 #include <string>
 #include <fstream>
 
+
 #pragma comment (lib, "Ws2_32.lib")
 
 #define DEFAULT_BUFLEN 256
+
+const std::string IMAGE_FOLDER = "C:\\ProgramData\\AutoFocus\\ImageProc\\";
+const std::string HISTORY_IMAGE_FOLDER = "C:\\ProgramData\\AutoFocus\\ImageProc\\History\\";
+
 
 int main()
 {
@@ -32,7 +37,6 @@ int main()
 		return 1;
 	}
 
-
 	//Create a SOCKET for listening for incoming connections request
 	SOCKET ListenSocket, ClientSocket;
 	ListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -41,7 +45,6 @@ int main()
 		WSACleanup();
 		return 1;
 	}
-
 
 	//The sockaddr_in structure specifies the address family,
 	//IP address, and port for the socket that is being bound
@@ -76,7 +79,8 @@ int main()
 		return 1;
 	}
 
-	
+	int imageCount = 0;
+	int saveImageNum = 4;
 
 	while (1)
 	{
@@ -111,10 +115,15 @@ int main()
 			std::string command = lensExePath + " 3000"; // The value 3000 here needs change
 			system(command.c_str());
 
-
 			// Step 3: Wait some time here, and do image acquisition, save the image to some place
 			// - May also save the other information in the same folder here?
+			int imageIndex = (imageCount++) % saveImageNum;
+			std::string ImageAcquisitionPath = currentDir + "..\\Bin\\ImageAcquisition\\Acquisition_CSharpd_v140.exe";
+			std::string ImageSavingPath = IMAGE_FOLDER + "currentImage_" + std::to_string(imageIndex) + ".jpg";
+			std::string ImageAcqCommand = ImageAcquisitionPath + " " + ImageSavingPath;
+			system(ImageAcqCommand.c_str());
 
+			Sleep(500);
 
 			// Step 4: Do barcode/QR code image processing
 
@@ -151,3 +160,5 @@ int main()
 
 	return 0;
 }
+
+
