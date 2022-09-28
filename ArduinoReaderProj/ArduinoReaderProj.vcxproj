@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b5c904f9-704e-4bd3-b62c-07d31f9589c1}</ProjectGuid>
-    <RootNamespace>DepthSensorClient</RootNamespace>
+    <ProjectGuid>{8c71de40-25a9-4a5a-a853-0ccb7dba3be1}</ProjectGuid>
+    <RootNamespace>ArduinoReaderProj</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DepthSensorClient.cpp" />
+    <ClCompile Include="ArduinoReaderProj.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
