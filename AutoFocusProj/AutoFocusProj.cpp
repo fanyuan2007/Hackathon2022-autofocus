@@ -27,7 +27,9 @@ int main()
 	std::string currentDir = std::string(buf) + '\\';
 	std::cout << "currentDir: " << currentDir << std::endl;
 
-	//char str[INET_ADDRSTRLEN];
+	// Project initial setup
+	std::string projSetting = currentDir + "..\\Bin\\PresettingProj.exe";
+	system(projSetting.c_str());
 
 	//Initialize Winsock
 	WSADATA wsaData;
@@ -126,6 +128,7 @@ int main()
 			Sleep(500);
 
 			// Step 4: Do barcode/QR code image processing
+			
 
 		}
 		else if (result == 0)
