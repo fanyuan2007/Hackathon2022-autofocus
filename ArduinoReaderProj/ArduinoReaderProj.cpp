@@ -1,18 +1,17 @@
 // ArduinoReaderProj.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-// ArduinoReaderProj.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <Windows.h>
 
-int main()
+using namespace std;
+
+ int main()
 {
     // Open serial port
     HANDLE serialHandle;
 
-    serialHandle = CreateFileA("COM3",
+    serialHandle = CreateFileA("COM5",
         GENERIC_READ | GENERIC_WRITE,
         0,
         0,
@@ -47,21 +46,30 @@ int main()
         //error occureed. Inform user
     }
 
-    DWORD n = 16;
+	std::string distanceStr;
+#define NUM_BYTES_IN_BUFFER 40
     while (1)
     {
-        Sleep(10);
-        char szBuff[17] = { 0 };
-        DWORD dwBytesRead = 0;
-        if (!ReadFile(serialHandle, szBuff, n, &dwBytesRead, NULL)) {
-            //error occurred. Report to user.
-        }
-        szBuff[n] = '\0';
-
-        std::cout << szBuff << std::endl;
-    }
+		Sleep(10);
+		char szBuff[NUM_BYTES_IN_BUFFER + 1] = { 0 };
+		DWORD dwBytesRead = 0;
+		if (!ReadFile(serialHandle, szBuff, NUM_BYTES_IN_BUFFER, &dwBytesRead, NULL)) {
+		//error occurred. Report to user.
+		}
+		szBuff[NUM_BYTES_IN_BUFFER] = '\0';
+	
+		string strInput(szBuff);	
+		std::size_t pos1 = -1;
+		pos1 = strInput.find(":");
+		pos1 += 2;
+		std::size_t pos2 = -1;
+		pos2 = strInput.find("cm");
+	
+		if (pos1 < pos2) {
+			std::string str3 = strInput.substr(pos1, pos2 - pos1);
+			std::cout << "str3: " << str3 << '\n';
+		}
+	}
 
     CloseHandle(serialHandle);
-
 }
-
