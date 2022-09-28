@@ -17,6 +17,10 @@ int main()
 {
 	std::cout << "*****************    SERVER    *****************\n\n";
 
+	char buf[256];
+	GetCurrentDirectoryA(256, buf);
+	std::string currentDir = std::string(buf) + '\\';
+	std::cout << "currentDir: " << currentDir << std::endl;
 
 	//char str[INET_ADDRSTRLEN];
 
@@ -72,6 +76,8 @@ int main()
 		return 1;
 	}
 
+	
+
 	while (1)
 	{
 		//Variables for recieve
@@ -101,10 +107,14 @@ int main()
 			}
 
 			// Step 2: Update the lens' focus value with calling the C# executable
+			std::string lensExePath = currentDir + "..\\Bin\\ComputarAutoLens.exe";
+			std::string command = lensExePath + " 3000"; // The value 3000 here needs change
+			system(command.c_str());
 
 
 			// Step 3: Wait some time here, and do image acquisition, save the image to some place
 			// - May also save the other information in the same folder here?
+
 
 			// Step 4: Do barcode/QR code image processing
 
