@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <Windows.h>
+#include <map>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -46,15 +49,28 @@ using namespace std;
         //error occureed. Inform user
     }
 
-	std::string distanceStr;
+	//std::string distanceStr;
 #define NUM_BYTES_IN_BUFFER 40
+
+	map<int, int> stepperMap;
+	//the are added to the created map
+	stepperMap[3820] = 24;
+	stepperMap[4090] = 18;
+	stepperMap[4990] = 11;
+	//stepperMap[3] = 24;
+	//stepperMap[2] = 18;
+	//stepperMap[1] = 11;
+	int stepperVal = 0;
+	int stepperValPrev = 0;
+	int stepperState = 0;
+
     while (1)
     {
 		Sleep(10);
 		char szBuff[NUM_BYTES_IN_BUFFER + 1] = { 0 };
 		DWORD dwBytesRead = 0;
 		if (!ReadFile(serialHandle, szBuff, NUM_BYTES_IN_BUFFER, &dwBytesRead, NULL)) {
-		//error occurred. Report to user.
+			//error occurred. Report to user.
 		}
 		szBuff[NUM_BYTES_IN_BUFFER] = '\0';
 	
@@ -67,9 +83,54 @@ using namespace std;
 	
 		if (pos1 < pos2) {
 			std::string str3 = strInput.substr(pos1, pos2 - pos1);
-			std::cout << "str3: " << str3 << '\n';
+			//std::cout << "str3: " << str3 << '\n';
+
+			int distanceInCm;
+			std::istringstream(str3) >> distanceInCm;
+			//std::cout << "distanceInCm: " << distanceInCm << '\n';
+			int distanceThreshInCm = 2;
+
+			map<int, int>::iterator it;
+			stepperVal = 0;
+			for (it = stepperMap.begin(); it != stepperMap.end(); it++)
+			{
+				int refDistance = it->second;
+				int refState = it->first;
+
+				bool isWithinRange = false;
+				if (refState == 1)
+				{
+					if (distanceInCm < 14)
+					{
+						isWithinRange = true;
+					}
+				}
+				else
+				{
+					if ((distanceInCm == refDistance) || (distanceInCm == (refDistance + 1)))
+					{
+						isWithinRange = true;
+					}
+				}
+
+				if(isWithinRange)
+				{
+					stepperVal = it->first;
+
+					if ((stepperVal == stepperValPrev) && (stepperVal != stepperState))
+					{
+						stepperState = stepperVal;
+						std::cout << "stepperVal: " << stepperVal << '\n';
+						std::cout << std::endl;
+						break;
+					}
+					stepperValPrev = stepperVal;
+					
+				}
+			}
 		}
 	}
 
     CloseHandle(serialHandle);
 }
+
