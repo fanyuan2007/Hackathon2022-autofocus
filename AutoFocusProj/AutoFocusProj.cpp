@@ -114,16 +114,17 @@ int main()
 
 			// Step 2: Update the lens' focus value with calling the C# executable
 			std::string lensExePath = currentDir + "..\\Bin\\ComputarAutoLens.exe";
-			std::string command = lensExePath + " 3000"; // The value 3000 here needs change
+			std::string command = lensExePath + " " + recvContent; // The value 3000 here needs change
+			std::cout << command << std::endl;
 			system(command.c_str());
 
 			// Step 3: Wait some time here, and do image acquisition, save the image to some place
 			// - May also save the other information in the same folder here?
-			int imageIndex = (imageCount++) % saveImageNum;
-			std::string ImageAcquisitionPath = currentDir + "..\\Bin\\ImageAcquisition\\Acquisition_CSharpd_v140.exe";
-			std::string ImageSavingPath = IMAGE_FOLDER + "currentImage_" + std::to_string(imageIndex) + ".jpg";
-			std::string ImageAcqCommand = ImageAcquisitionPath + " " + ImageSavingPath;
-			system(ImageAcqCommand.c_str());
+			//int imageIndex = (imageCount++) % saveImageNum;
+			//std::string ImageAcquisitionPath = currentDir + "..\\Bin\\ImageAcquisition\\Acquisition_CSharpd_v140.exe";
+			//std::string ImageSavingPath = IMAGE_FOLDER + "currentImage_" + std::to_string(imageIndex) + ".jpg";
+			//std::string ImageAcqCommand = ImageAcquisitionPath + " " + ImageSavingPath;
+			//system(ImageAcqCommand.c_str());
 
 			Sleep(500);
 

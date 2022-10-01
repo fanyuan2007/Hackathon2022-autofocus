@@ -66,7 +66,7 @@ using namespace std;
 
     while (1)
     {
-		Sleep(10);
+		Sleep(30);
 		char szBuff[NUM_BYTES_IN_BUFFER + 1] = { 0 };
 		DWORD dwBytesRead = 0;
 		if (!ReadFile(serialHandle, szBuff, NUM_BYTES_IN_BUFFER, &dwBytesRead, NULL)) {

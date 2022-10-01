@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-namespace ComputarAutoLens
+namespace PresettingProj
 {
     public class Program
     {
